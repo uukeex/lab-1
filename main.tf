@@ -1,6 +1,6 @@
 variable "server-name" {
   type        = string
-  default = "kot"
+  default     = "kot"
   description = "Name of a server to provision"
 }
 
@@ -11,9 +11,9 @@ locals {
 
 locals {
   countOfItems = {
-    disks = 13
+    disks   = 13
     servers = 22
-    max = local.maxNumberOfServers + var.number-of-disks
+    max     = local.maxNumberOfServers + var.number-of-disks
   }
 }
 
