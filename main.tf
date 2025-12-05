@@ -1,17 +1,20 @@
-# Write a calculator
-
 variable "a" {
   type = number
 }
 
 variable "z" {
   type = number
+
+  validation {
+    condition     = !(var.operand == "/" && var.z == 0)
+    error_message = "Division by zero is not allowed."
+  }
 }
 
-# Allowed: +, -, *, /
 variable "operand" {
   type = string
-   validation {
+
+  validation {
     condition     = contains(["+", "-", "*", "/"], var.operand)
     error_message = "Invalid operator"
   }
