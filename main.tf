@@ -31,7 +31,7 @@ variable "tags" {
   }
 }
 
-resource "aws_s3_bucket" "my_bucket" {
+resource "aws_s3_bucket" "my-bucket" {
   bucket_prefix = var.bucket_prefix
 
   tags = merge(
@@ -42,23 +42,20 @@ resource "aws_s3_bucket" "my_bucket" {
 
 resource "aws_s3_object" "object" {
   for_each = fileset(path.module, "messages/*")
-  bucket   = aws_s3_bucket.my_bucket.bucket
+  bucket   = aws_s3_bucket.my-bucket.bucket
   key      = basename(each.key)
   source   = each.key
 }
 
 output "bucket_name" {
-  value = aws_s3_bucket.my_bucket.bucket
+  value = aws_s3_bucket.my-bucket.bucket
 }
 
 output "bucket_arn" {
-  value = aws_s3_bucket.my_bucket.arn
+  value = aws_s3_bucket.my-bucket.arn
 }
 
-output "bucket_domain_name" {
-  value = aws_s3_bucket.my_bucket.bucket_domain_name
-}
 
-#output "bucket_http_url" {
-#  value = "http://${aws_s3_bucket.my-bucket.bucket}.s3.amazonaws.com"
-#}
+output "bucket_http_url" {
+  value = "http://${aws_s3_bucket.my-bucket.bucket_domain_name}"
+}
